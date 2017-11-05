@@ -4,6 +4,8 @@
 
 #RequireAdmin
 
+#include <Timers.au3>
+
 Opt('MustDeclareVars', 1)
 
 Global $version = "1.1"
@@ -18,16 +20,21 @@ Global $count = 0;
 
 local $msg, $line;
 
+_Timer_SetTimer ($Form1, 1000, quit(), -1)
+
 _GUICtrlEdit_AppendText($editctrl, @HOUR &  ":" & @MIN & ":" & @SEC &  " - Started Auto Killer" & @CRLF & @CRLF)
 GUISetState(@SW_SHOW)
 
 while 1
-	sleep(100)
-	gui_check()
-	kill()
+	Sleep(100)
 WEnd
 
 Exit
+
+Func quit()
+	WinKill($Form1)
+EndFunc
+
 
 func gui_check()
 	$msg = GUIGetMsg()
